@@ -83,7 +83,6 @@ public class test {
 
     @Test
     public void testCLIWithUrlBeforeCommand() {
-        // cli --url http://localhost:3000/shop-api list
         CLI cli = new CLI(new String[]{
                 "--url", "http://localhost:3000/shop-api", "list"
         });
@@ -92,7 +91,6 @@ public class test {
 
     @Test
     public void testCLIWithUrlAfterCommand() {
-        // cli list --url http://localhost:3000/shop-api
         CLI cli = new CLI(new String[]{
                 "list", "--url", "http://localhost:3000/shop-api"
         });
