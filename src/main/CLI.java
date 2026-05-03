@@ -1,14 +1,24 @@
 package main;
 
-public class CLI
-{
-    private String[] args;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 
-    public CLI(String[] args) {
-        this.args = args;
+@Command(
+        name = "cli",
+        subcommands = { ListCommand.class, CartCommand.class }
+)
+
+public class CLI implements Runnable {
+
+    @Option(names = "--url")
+    private String url;
+
+    public void run() { }
+
+    public static void main(String[] args) {
+        new CommandLine(new CLI()).execute(args);
     }
 
-    public void run() throws Exception {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
+    public String getUrl() { return url; }
 }
