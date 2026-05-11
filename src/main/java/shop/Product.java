@@ -1,4 +1,3 @@
 package shop;
 
-public record Product(String name, double price) {
-}
+public record Product(String name, double price) {}

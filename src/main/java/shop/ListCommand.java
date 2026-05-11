@@ -8,8 +8,8 @@ public class ListCommand extends Command implements Runnable {
 
   @CommandLine.Option(names = "--format", defaultValue = "table")
   private final String format;
-  @CommandLine.ParentCommand
-  private CLI parent;
+
+  @CommandLine.ParentCommand private CLI parent;
 
   public ListCommand(String url, String format) {
     super(url);
@@ -52,8 +52,8 @@ public class ListCommand extends Command implements Runnable {
 
   private List<Product> fetchProducts() {
     return List.of(
-            new Product("T-shirt", 19.99),
-            new Product("Pantalon", 49.99),
-            new Product("Chaussures", 89.99));
+        new Product("T-shirt", 19.99),
+        new Product("Pantalon", 49.99),
+        new Product("Chaussures", 89.99));
   }
 }
