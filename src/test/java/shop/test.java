@@ -32,40 +32,34 @@ public class test {
   @org.junit.jupiter.api.Test
   public void testListCommandInvalidFormat() {
     assertThrows(
-            IllegalArgumentException.class,
-            () -> new ListCommand("http://localhost:3000/shop-api", "xml"));
+        IllegalArgumentException.class,
+        () -> new ListCommand("http://localhost:3000/shop-api", "xml"));
   }
 
   // Tests URL
 
   @org.junit.jupiter.api.Test
   public void testListCommandNullUrl() {
-    assertThrows(
-            IllegalArgumentException.class,
-            () -> new ListCommand(null, "table"));
+    assertThrows(IllegalArgumentException.class, () -> new ListCommand(null, "table"));
   }
 
   @org.junit.jupiter.api.Test
   public void testListCommandEmptyUrl() {
-    assertThrows(
-            IllegalArgumentException.class,
-            () -> new ListCommand("", "table"));
+    assertThrows(IllegalArgumentException.class, () -> new ListCommand("", "table"));
   }
 
   // Tests CLI principal
 
   @org.junit.jupiter.api.Test
   public void testCLINoArgs() {
-    assertThrows(
-            IllegalArgumentException.class,
-            () -> CLI.main(new String[]{}));
+    assertThrows(IllegalArgumentException.class, () -> CLI.main(new String[] {}));
   }
 
   @org.junit.jupiter.api.Test
   public void testCLIWithUrlBeforeCommand() {
     CLI cli = new CLI();
     int exitCode =
-            new picocli.CommandLine(cli).execute("--url", "http://localhost:3000/shop-api", "list");
+        new picocli.CommandLine(cli).execute("--url", "http://localhost:3000/shop-api", "list");
     assertEquals(0, exitCode);
     assertNotNull(cli);
   }
@@ -74,7 +68,7 @@ public class test {
   public void testCLIWithUrlAfterCommand() {
     CLI cli = new CLI();
     int exitCode =
-            new picocli.CommandLine(cli).execute("list", "--url", "http://localhost:3000/shop-api");
+        new picocli.CommandLine(cli).execute("list", "--url", "http://localhost:3000/shop-api");
     assertEquals(0, exitCode);
     assertNotNull(cli);
   }

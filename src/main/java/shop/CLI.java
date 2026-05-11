@@ -5,8 +5,8 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 @Command(
-        name = "cli",
-        subcommands = {ListCommand.class, CartCommand.class})
+    name = "cli",
+    subcommands = {ListCommand.class, CartCommand.class})
 public class CLI implements Runnable {
 
   @Option(names = "--url")
