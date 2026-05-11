@@ -1,4 +1,4 @@
-package java;
+package shop;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class TableFormatter implements OutputFormatter {
     System.out.printf("%-20s %s%n", "Nom", "Prix");
     System.out.println("-".repeat(30));
     for (Product p : data) {
-      System.out.printf("%-20s %.2f CHF%n", p.getName(), p.getPrice());
+      System.out.printf("%-20s %.2f CHF%n", p.name(), p.price());
     }
   }
 }

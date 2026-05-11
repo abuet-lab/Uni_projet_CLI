@@ -1,4 +1,4 @@
-package java;
+package shop;
 
 public abstract class Command {
   protected String url;

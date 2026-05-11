@@ -1,16 +1,15 @@
-package java;
+package shop;
 
 import java.util.List;
-import picocli.CommandLine.Option;
-import picocli.CommandLine.ParentCommand;
+import picocli.CommandLine;
 
 @picocli.CommandLine.Command(name = "list", description = "Affiche la liste des produits")
-public class ListCommand extends java.Command implements Runnable {
+public class ListCommand extends Command implements Runnable {
 
-  @ParentCommand private CLI parent;
-
-  @Option(names = "--format", defaultValue = "table")
+  @CommandLine.Option(names = "--format", defaultValue = "table")
   private final String format;
+  @CommandLine.ParentCommand
+  private CLI parent;
 
   public ListCommand(String url, String format) {
     super(url);
@@ -53,8 +52,8 @@ public class ListCommand extends java.Command implements Runnable {
 
   private List<Product> fetchProducts() {
     return List.of(
-        new Product("T-shirt", 19.99),
-        new Product("Pantalon", 49.99),
-        new Product("Chaussures", 89.99));
+            new Product("T-shirt", 19.99),
+            new Product("Pantalon", 49.99),
+            new Product("Chaussures", 89.99));
   }
 }

@@ -1,4 +1,4 @@
-package java;
+package shop;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;

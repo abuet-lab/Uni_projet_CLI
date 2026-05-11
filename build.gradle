@@ -1,24 +1,31 @@
 plugins {
     id 'java'
 }
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation fileTree(dir: 'lib', include: ['*.jar'])
+
+    // Dépendances pour JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    // INDISPENSABLE pour lancer les tests sur les versions récentes de Java
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main']
+            // Attention : Gradle s'attend normalement à src/main/java
+            srcDirs = ['src/main/java']
         }
     }
     test {
         java {
-            srcDirs = ['src/test']
+            // Attention : Gradle s'attend normalement à src/test/java
+            srcDirs = ['src/test/java']
         }
     }
 }
