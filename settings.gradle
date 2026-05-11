@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = 'Uni_projet_CLI'
-include('app')
+
