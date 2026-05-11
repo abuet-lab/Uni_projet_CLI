@@ -1,11 +1,5 @@
 package java;
 
-import java.ListCommand;
-import java.CLI;
-import java.Command;
-import java.JsonFormatter;
-import java.ListCommand;
-import java.TableFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class test {

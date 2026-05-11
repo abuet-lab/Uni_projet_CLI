@@ -1,12 +1,8 @@
 package java;
 
-import picocli.CommandLine;
-import picocli.CommandLine.Command;
+import java.util.List;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.ParentCommand;
-
-import java.lang.annotation.Annotation;
-import java.util.List;
 
 @picocli.CommandLine.Command(name = "list", description = "Affiche la liste des produits")
 public class ListCommand extends java.Command implements Runnable {
@@ -14,7 +10,7 @@ public class ListCommand extends java.Command implements Runnable {
   @ParentCommand private CLI parent;
 
   @Option(names = "--format", defaultValue = "table")
-  private String format;
+  private final String format;
 
   public ListCommand(String url, String format) {
     super(url);
