@@ -7,7 +7,7 @@ import picocli.CommandLine;
 public class ListCommand extends Command implements Runnable {
 
   @CommandLine.Option(names = "--format", defaultValue = "table")
-  private final String format;
+  private String format;
 
   @CommandLine.ParentCommand private CLI parent;
 

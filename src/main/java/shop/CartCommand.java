@@ -7,6 +7,7 @@ public class CartCommand extends Command implements Runnable {
 
   @ParentCommand private CLI parent;
 
+  // Constructeur sans argument OBLIGATOIRE pour picocli
   public CartCommand() {
     super(null);
   }
@@ -27,4 +28,3 @@ public class CartCommand extends Command implements Runnable {
     System.out.println("Cart command - pas encore implémenté");
   }
 }
-// test
