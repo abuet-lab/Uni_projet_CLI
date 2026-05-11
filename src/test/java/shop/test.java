@@ -32,10 +32,8 @@ public class test {
   @org.junit.jupiter.api.Test
   public void testListCommandInvalidFormat() {
     assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          new ListCommand("http://localhost:3000/shop-api", "xml");
-        });
+            IllegalArgumentException.class,
+            () -> new ListCommand("http://localhost:3000/shop-api", "xml"));
   }
 
   // Tests URL
@@ -43,19 +41,15 @@ public class test {
   @org.junit.jupiter.api.Test
   public void testListCommandNullUrl() {
     assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          new ListCommand(null, "table");
-        });
+            IllegalArgumentException.class,
+            () -> new ListCommand(null, "table"));
   }
 
   @org.junit.jupiter.api.Test
   public void testListCommandEmptyUrl() {
     assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          new ListCommand("", "table");
-        });
+            IllegalArgumentException.class,
+            () -> new ListCommand("", "table"));
   }
 
   // Tests CLI principal
@@ -63,33 +57,24 @@ public class test {
   @org.junit.jupiter.api.Test
   public void testCLINoArgs() {
     assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          CLI cli = new CLI();
-          cli.run();
-        });
+            IllegalArgumentException.class,
+            () -> CLI.main(new String[]{}));
   }
 
   @org.junit.jupiter.api.Test
   public void testCLIWithUrlBeforeCommand() {
-    // Utilise le constructeur sans argument qui existe réellement
     CLI cli = new CLI();
-
-    // Pour tester si picocli accepte les arguments :
     int exitCode =
-        new picocli.CommandLine(cli).execute("--url", "http://localhost:3000/shop-api", "list");
-
-    assertEquals(0, exitCode); // 0 signifie que l'exécution a réussi
+            new picocli.CommandLine(cli).execute("--url", "http://localhost:3000/shop-api", "list");
+    assertEquals(0, exitCode);
     assertNotNull(cli);
   }
 
   @org.junit.jupiter.api.Test
   public void testCLIWithUrlAfterCommand() {
     CLI cli = new CLI();
-
     int exitCode =
-        new picocli.CommandLine(cli).execute("list", "--url", "http://localhost:3000/shop-api");
-
+            new picocli.CommandLine(cli).execute("list", "--url", "http://localhost:3000/shop-api");
     assertEquals(0, exitCode);
     assertNotNull(cli);
   }

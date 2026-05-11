@@ -7,16 +7,25 @@ import picocli.CommandLine;
 public class ListCommand extends Command implements Runnable {
 
   @CommandLine.Option(names = "--format", defaultValue = "table")
-  private final String format;
+  private String format;
 
   @CommandLine.ParentCommand private CLI parent;
 
+  // Constructeur sans argument requis par picocli
+  public ListCommand() {
+    super(null);
+    this.format = "table";
+  }
+
   public ListCommand(String url, String format) {
     super(url);
-    this.format = format;
+    if (url == null || url.isEmpty()) {
+      throw new IllegalArgumentException("URL cannot be null or empty");
+    }
     if (format != null && !format.equals("table") && !format.equals("json")) {
       throw new IllegalArgumentException("Invalid format");
     }
+    this.format = format;
   }
 
   public String getUrl() {
@@ -42,7 +51,7 @@ public class ListCommand extends Command implements Runnable {
   public void execute() throws Exception {
     List<Product> products = fetchProducts();
     OutputFormatter formatter;
-    if (format.equals("json")) {
+    if ("json".equals(format)) {
       formatter = new JsonFormatter();
     } else {
       formatter = new TableFormatter();
@@ -52,8 +61,8 @@ public class ListCommand extends Command implements Runnable {
 
   private List<Product> fetchProducts() {
     return List.of(
-        new Product("T-shirt", 19.99),
-        new Product("Pantalon", 49.99),
-        new Product("Chaussures", 89.99));
+            new Product("T-shirt", 19.99),
+            new Product("Pantalon", 49.99),
+            new Product("Chaussures", 89.99));
   }
 }
