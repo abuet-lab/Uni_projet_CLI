@@ -5,21 +5,21 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 @Command(
-        name = "cli",
-        subcommands = { ListCommand.class, CartCommand.class }
-)
-
+    name = "cli",
+    subcommands = {ListCommand.class, CartCommand.class})
 public class CLI implements Runnable {
 
-    @Option(names = "--url")
-    private String url;
+  @Option(names = "--url")
+  private String url;
 
-    public void run() { }
+  public void run() {}
 
-    public static void main(String[] args) {
-        if (args.length == 0) throw new IllegalArgumentException("Aucun argument");
-        new CommandLine(new CLI()).execute(args);
-    }
+  public static void main(String[] args) {
+    if (args.length == 0) throw new IllegalArgumentException("Aucun argument");
+    new CommandLine(new CLI()).execute(args);
+  }
 
-    public String getUrl() { return url; }
+  public String getUrl() {
+    return url;
+  }
 }
