@@ -9,6 +9,9 @@ public class ListCommand extends Command implements Runnable {
   @CommandLine.Option(names = "--format", defaultValue = "table")
   private String format;
 
+  @CommandLine.Option(names = "--url")
+  private String localUrl;
+
   @CommandLine.ParentCommand private CLI parent;
 
   // Constructeur sans argument requis par picocli
@@ -38,7 +41,7 @@ public class ListCommand extends Command implements Runnable {
 
   @Override
   public void run() {
-    this.url = parent.getUrl();
+    this.url = (localUrl != null) ? localUrl : parent.getUrl();
     if (this.url == null) this.url = System.getenv("URL");
     try {
       execute();
@@ -61,8 +64,8 @@ public class ListCommand extends Command implements Runnable {
 
   private List<Product> fetchProducts() {
     return List.of(
-        new Product("T-shirt", 19.99),
-        new Product("Pantalon", 49.99),
-        new Product("Chaussures", 89.99));
+            new Product("T-shirt", 19.99),
+            new Product("Pantalon", 49.99),
+            new Product("Chaussures", 89.99));
   }
 }
