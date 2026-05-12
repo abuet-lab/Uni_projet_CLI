@@ -62,10 +62,8 @@ public class ListCommand extends Command implements Runnable {
     formatter.format(products);
   }
 
-  private List<Product> fetchProducts() {
-    return List.of(
-        new Product("T-shirt", 19.99),
-        new Product("Pantalon", 49.99),
-        new Product("Chaussures", 89.99));
+  private List<Product> fetchProducts() throws Exception {
+    GraphQLService service = new GraphQLService(url);
+    return service.execute(new ProductsQuery());
   }
 }

@@ -23,7 +23,6 @@ public class CLI implements Runnable {
 
   @Override
   public void run() {
-    // Si run() est appelé directement sans sous-commande ni args, on lève une exception
     throw new IllegalArgumentException("Aucun argument");
   }
 
