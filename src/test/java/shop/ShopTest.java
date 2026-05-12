@@ -118,16 +118,10 @@ public class ShopTest {
   public void testProductsQueryParseResponse() throws Exception {
     ProductsQuery query = new ProductsQuery();
     String fakeJson =
-        "{"
-            + "\"data\": {"
-            + "  \"products\": {"
-            + "    \"items\": ["
-            + "      { \"id\": \"1\", \"name\": \"Laptop\", \"slug\": \"laptop\", \"variants\": [{ \"price\": 129900 }] },"
-            + "      { \"id\": \"2\", \"name\": \"Tablet\", \"slug\": \"tablet\", \"variants\": [{ \"price\": 32900 }] }"
-            + "    ],"
-            + "    \"totalItems\": 2"
-            + "  }"
-            + "}}";
+        "{\"data\": {  \"products\": {    \"items\": [      { \"id\": \"1\", \"name\": \"Laptop\","
+            + " \"slug\": \"laptop\", \"variants\": [{ \"price\": 129900 }] },      { \"id\":"
+            + " \"2\", \"name\": \"Tablet\", \"slug\": \"tablet\", \"variants\": [{ \"price\":"
+            + " 32900 }] }    ],    \"totalItems\": 2  }}}";
 
     List<Product> products = query.parseResponse(fakeJson);
 
