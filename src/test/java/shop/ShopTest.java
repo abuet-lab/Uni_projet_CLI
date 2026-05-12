@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-public class test {
+public class ShopTest {
 
   // Tests ListCommand
   @org.junit.jupiter.api.Test
