@@ -11,12 +11,10 @@ public class ProductQuery implements GraphQLQuery<Product> {
   private final String id;
   private final String slug;
 
-  /** Recherche par ID. */
   public ProductQuery(String id) {
     this(id, null);
   }
 
-  /** Recherche par ID et/ou slug. */
   public ProductQuery(String id, String slug) {
     if (id == null && slug == null) {
       throw new IllegalArgumentException("id ou slug requis");
