@@ -34,7 +34,7 @@ $ cli list --format json
 
 ## Features
 
-- **Git-style subcommands** (`list`, `product`, …) powered by [picocli](https://picocli.info/).
+- **Git-style subcommands** (`list`, `cart`) powered by [picocli](https://picocli.info/).
 - **Multiple output formats** for the product list: a readable table (`--format table`) or JSON (`--format json`).
 - **Configurable server URL**, either through the global `--url` option or the `URL` environment variable (the option takes precedence).
 - **Typed, extensible GraphQL client**: each GraphQL query is a Java class that builds its own query string and maps the JSON response to typed objects.
@@ -49,20 +49,21 @@ The core of the project is a small framework for defining GraphQL queries as Jav
 2. deserialize the JSON response into an instance of the expected result type.
 
 ```text
-┌──────────────┐     ┌────────────────────┐     ┌─────────────────────┐
-│  CLI         │ ──► │  VendureService    │ ──► │  Vendure GraphQL    │
-│  (picocli)   │     │  (HTTP POST JSON)  │     │  API  /shop-api     │
-└──────────────┘     └────────────────────┘     └─────────────────────┘
-        │                      ▲
-        ▼                      │
-┌──────────────┐     ┌────────────────────┐
-│  Formatters  │     │  GraphQLQuery<T>   │
-│  table/json  │     │  ├ ProductsQuery   │
-└──────────────┘     │  └ ProductQuery    │
-                     └────────────────────┘
+┌──────────────────┐     ┌────────────────────┐     ┌─────────────────────┐
+│  CLI (picocli)   │ ──► │  GraphQLService    │ ──► │  Vendure GraphQL    │
+│  ├ ListCommand   │     │  (HTTP POST JSON)  │     │  API  /shop-api     │
+│  └ CartCommand   │     └────────────────────┘     └─────────────────────┘
+└──────────────────┘               ▲
+         │                         │
+         ▼                ┌────────────────────┐
+┌──────────────────┐      │  GraphQLQuery<T>   │
+│ OutputFormatter  │      │  ├ ProductsQuery   │
+│  ├ TableFormatter│      │  └ ProductQuery    │
+│  └ JsonFormatter │      └────────────────────┘
+└──────────────────┘
 ```
 
-Adding a new query only requires creating a class that extends the base query and defines its GraphQL text and result type; the service handles the HTTP call and the deserialization.
+Adding a new query only requires creating a class that extends `GraphQLQuery` and defines its GraphQL text and result type; `GraphQLService` handles the HTTP call and the deserialization. Output formats follow the same idea: each format implements the `OutputFormatter` interface, so a new format can be added without touching the commands.
 
 Implemented queries:
 
@@ -70,6 +71,27 @@ Implemented queries:
 |-----------------|-------------------------------------------------------|-------------------|
 | `ProductsQuery` | `products(options: ProductListOptions): ProductList!` | List of products  |
 | `ProductQuery`  | `product(id: ID, slug: String): Product`              | Product details   |
+
+## Project structure
+
+```text
+src/
+├── main/java/shop/
+│   ├── CLI.java              # Entry point, global --url option
+│   ├── Command.java          # Shared base for subcommands
+│   ├── ListCommand.java      # `list` subcommand (--format table|json)
+│   ├── CartCommand.java      # `cart` subcommand
+│   ├── GraphQLService.java   # Sends queries to Vendure over HTTP
+│   ├── GraphQLQuery.java     # Base class for typed GraphQL queries
+│   ├── ProductsQuery.java    # products(options) query
+│   ├── ProductQuery.java     # product(id, slug) query
+│   ├── Product.java          # Product model
+│   ├── OutputFormatter.java  # Output format interface
+│   ├── TableFormatter.java   # Table output
+│   └── JsonFormatter.java    # JSON output
+└── test/java/shop/
+    └── ShopTest.java         # Unit tests
+```
 
 ## Tech stack
 
